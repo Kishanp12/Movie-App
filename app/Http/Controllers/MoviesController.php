@@ -19,6 +19,8 @@ class MoviesController extends Controller
         $popularMovies = Http::withOptions(['verify' => false])->get('https://api.themoviedb.org/3/movie/popular', ['api_key' => '69b90cb6d369653405555904c529449a'])
             ->json()['results'];
 
+
+
         // Now Playing Movies From API
         $nowPlayingMovies = Http::withOptions(['verify' => false])->get('https://api.themoviedb.org/3/movie/now_playing', ['api_key' => '69b90cb6d369653405555904c529449a'])
             ->json()['results'];
@@ -33,7 +35,7 @@ class MoviesController extends Controller
             return [$genre['id'] => $genre['name']];
         });
 
-        dump($nowPlayingMovies);
+
 
 
 
@@ -77,7 +79,6 @@ class MoviesController extends Controller
         $movie = Http::withOptions(['verify' => false])->get('https://api.themoviedb.org/3/movie/' . $id, ['api_key' => '69b90cb6d369653405555904c529449a', 'append_to_response' => 'credits,videos,images'])
             ->json();
 
-        dump($movie);
 
         return view('show', [
             'movie' => $movie,
