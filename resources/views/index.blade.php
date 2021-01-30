@@ -19,7 +19,7 @@
         <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
 
             @foreach ($nowPlayingMovies as $movie)
-               <x-movie-card :movie='$movie' :genres="$genres" />
+               <x-movie-card :movie='$movie'/>
             @endforeach
 
         </div>
