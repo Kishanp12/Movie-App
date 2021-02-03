@@ -57,8 +57,8 @@
                 <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-5">
                     @foreach ($knownForMovies as $movie)
                         <div class="mt-4">
-                            <a href="{{ $movie['linkToPage'] }}"><img src="{{ $movie['poster_path'] }}" alt="poster" class="transition duration-150 ease-in-out hover:opacity-75"></a>
-                            <a href="{{ $movie['linkToPage'] }}" class="block mt-1 text-sm leading-normal text-gray-400 hover:text-white">{{ $movie['title'] }}</a>
+                            <a href="{{ route('movies.show', $movie['id']) }}"><img src="{{ $movie['poster_path'] }}" alt="poster" class="transition duration-150 ease-in-out hover:opacity-75"></a>
+                            <a href="{{ route('movies.show', $movie['id']) }}" class="block mt-1 text-sm leading-normal text-gray-400 hover:text-white">{{ $movie['title'] }}</a>
                         </div>
 
                     @endforeach
@@ -75,7 +75,7 @@
                 @foreach ($credits as $credit)
                     <li>
                         {{ $credit['release_year'] }} &middot;
-                        <strong><a href="{{ $credit['linkToPage'] }}" class="hover:underline">{{ $credit['title'] }}</a></strong>
+                        <strong class="hover:underline">{{ $credit['title'] }}</strong>
                          as {{ $credit['character'] }}
                      </li>
                 @endforeach

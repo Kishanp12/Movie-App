@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Movies\Movies;
 use App\ViewModels\MoviesViewModel;
 use App\ViewModels\MovieViewModel;
 use Carbon\Carbon;
@@ -13,20 +14,15 @@ class MoviesController extends Controller
 
     public function index()
     {
+
         //Getting Popular Movies from API
-        $popularMovies = Http::withOptions(['verify' => false])->get('https://api.themoviedb.org/3/movie/popular', ['api_key' => '69b90cb6d369653405555904c529449a'])
-            ->json()['results'];
-
-
+        $popularMovies = Movies::getPopularMovies()['results'];
 
         // Now Playing Movies From API
-        $nowPlayingMovies = Http::withOptions(['verify' => false])->get('https://api.themoviedb.org/3/movie/now_playing', ['api_key' => '69b90cb6d369653405555904c529449a'])
-            ->json()['results'];
-
+        $nowPlayingMovies = Movies::getNowPlayingMovies()['results'];
 
         //Getting Genres from API
-        $genres = Http::withOptions(['verify' => false])->get('https://api.themoviedb.org/3/genre/movie/list', ['api_key' => '69b90cb6d369653405555904c529449a'])
-            ->json()['genres'];
+        $genres = Movies::getGenres()['genres'];
 
 
         $viewModel = new MoviesViewModel(
@@ -42,8 +38,8 @@ class MoviesController extends Controller
     public function show($id)
     {
         //Getting Movie Details from API
-        $movie = Http::withOptions(['verify' => false])->get('https://api.themoviedb.org/3/movie/' . $id, ['api_key' => '69b90cb6d369653405555904c529449a', 'append_to_response' => 'credits,videos,images'])
-            ->json();
+
+        $movie = Movies::getMovieByID($id);
 
         $viewModel = new MovieViewModel($movie);
 

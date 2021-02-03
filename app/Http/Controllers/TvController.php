@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Tv\Tv;
 use App\ViewModels\TvShowViewModel;
 use App\ViewModels\TvViewModel;
 use Illuminate\Http\Request;
@@ -14,20 +15,13 @@ class TvController extends Controller
     {
 
         //Getting Popular Movies from API
-        $popularTv = Http::withOptions(['verify' => false])->get('https://api.themoviedb.org/3/tv/popular', ['api_key' => '69b90cb6d369653405555904c529449a'])
-            ->json()['results'];
-
-
+        $popularTv = Tv::getPopularTv()['results'];
 
         // Now Playing Movies From API
-        $topRatedTv = Http::withOptions(['verify' => false])->get('https://api.themoviedb.org/3/tv/top_rated', ['api_key' => '69b90cb6d369653405555904c529449a'])
-            ->json()['results'];
-
+        $topRatedTv = Tv::getTopRatedTv()['results'];
 
         //Getting Genres from API
-        $genres = Http::withOptions(['verify' => false])->get('https://api.themoviedb.org/3/genre/tv/list', ['api_key' => '69b90cb6d369653405555904c529449a'])
-            ->json()['genres'];
-
+        $genres = Tv::getTvGenres()['genres'];
 
         $viewModel = new TvViewModel(
             $popularTv,
@@ -35,15 +29,13 @@ class TvController extends Controller
             $genres,
         );
 
-
         return view('tv.index', $viewModel);
     }
 
     public function show($id)
     {
         //Getting Movie Details from API
-        $tvshow = Http::withOptions(['verify' => false])->get('https://api.themoviedb.org/3/tv/' . $id, ['api_key' => '69b90cb6d369653405555904c529449a', 'append_to_response' => 'credits,videos,images'])
-            ->json();
+        $tvshow = Tv::getTvByID($id);
 
         $viewModel = new TvShowViewModel($tvshow);
 

@@ -85,7 +85,7 @@
                 @foreach ($movie['cast'] as $cast)
                     <div class="mt-8">
                         <a href="{{ route('actors.show', $cast['id']) }}">
-                            <img src="{{ $cast['profile_path'] }}" alt="actor1" class="transition duration-150 ease-in-out hover:opacity-75">
+                            <img src="https://image.tmdb.org/t/p/w500/{{ $cast['profile_path'] }}" alt="actor1" class="transition duration-150 ease-in-out hover:opacity-75">
                         </a>
                         <div class="mt-2">
                             <a href="{{ route('actors.show', $cast['id']) }}" class="mt-2 text-lg hover:text-gray:300">{{ $cast['name'] }}</a>
